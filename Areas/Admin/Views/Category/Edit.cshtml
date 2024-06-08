@@ -1,0 +1,45 @@
+@model Category
+
+@{
+    ViewData["Title"] = "Dashboard | Edit";
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit/</span> Category</h4>
+
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Edit Form</h5> <small class="text-muted float-end">@* Default label *@</small>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Name" type="text" class="form-control" id="basic-default-name" placeholder="Enter Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">Display Order</label>
+                        <div class="col-sm-10">
+                            <input asp-for="DisplayOrder" type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="Enter Number" aria-label="Enter Number" aria-describedby="basic-default-phone" />
+                            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="@Url.Action("Index", "Category")" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+@model ShoppingCart
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <div class="p-3 d-flex justify-content-center align-items-center" style="height: 100%;">
+                    <div class="border rounded" style="padding: 5px; display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
+                        <img src="@Model.Product.ImageUrl" alt="@Model.Product.Title" class="img-fluid rounded" style="max-height: 100%; max-width: 100%;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h2 class="card-title mb-3">@Model.Product.Title</h2>
+                    <p class="text-muted mb-2">by <b>@Model.Product.Author</b></p>
+                    <p class="mb-2"><strong>ISBN:</strong> @Model.Product.ISBN</p>
+                    <h4 class="text-success mb-3">$@Model.Product.Price</h4>
+                    <p class="mb-2"><strong>List Price:</strong> $@Model.Product.ListPrice</p>
+                    <p class="mb-2"><strong>Price for 50+:</strong> $@Model.Product.Price50</p>
+                    <p class="mb-2"><strong>Price for 100+:</strong> $@Model.Product.Price100</p>
+                    <p class="mb-3"><strong>Category:</strong> @Model.Product.Category.Name</p>
+                    <div class="mb-3">
+                        <strong>Description:</strong>
+                        @Html.Raw(Model.Product.Description)
+                    </div>
+                    <form method="post" asp-action="Detail">
+                        <input hidden asp-for="ProductId" />
+                        <div class="mb-3">
+                            <label asp-for="Count" class="form-label"><strong>Quantity:</strong></label>
+                            <input asp-for="Count" id="quantity" class="form-control" value="1" min="1" required />
+                        </div>
+                        <input type="hidden" value="Id" />
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Back to View</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

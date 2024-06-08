@@ -1,0 +1,90 @@
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Dashboard | Product";
+
+}
+<div class="layout-demo-wrapper">
+    <!-- Data Tables -->
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-6 pb-1 ms-auto text-start">
+                <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create/</span> Product</h4>
+            </div>
+            <div class="col-sm-6 pb-1 ms-auto text-end">
+                <a href="@Url.Action("Upsert", "Product")" class="btn btn-primary">New Product</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-truncate">Title</th>
+                            <th class="text-truncate">ISBN</th>
+                            <th class="text-truncate">Author</th>
+                            <th class="text-truncate">Price</th>
+                            <th class="text-truncate">Category</th>
+                            <th class="text-truncate">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                            <tr>
+                                <td class="text-truncate">@obj.Title</td>
+                                <td class="text-truncate">@obj.ISBN</td>
+                                <td class="text-truncate">@obj.Author</td>
+                                <td class="text-truncate">@obj.Price</td>
+                                <td class="text-truncate">@obj.Category.Name</td>
+                                <td>
+                                    <a href="@Url.Action("Upsert", "Product", new { id = obj.Id })" class="btn btn-sm btn-primary">Edit</a>
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@obj.Id" data-name="@obj.Title">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the product "<span id="productTitle"></span>"?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" asp-action="Delete" asp-controller="Product">
+                    <input type="hidden" name="id" id="productId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section DeleteScripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+
+            var productTitle = deleteModal.querySelector('#productTitle');
+            var productId = deleteModal.querySelector('#productId');
+
+            productTitle.textContent = name;
+            productId.value = id;
+        });
+    </script>
+}

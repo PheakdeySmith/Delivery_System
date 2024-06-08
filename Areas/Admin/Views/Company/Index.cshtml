@@ -1,0 +1,92 @@
+@model List<Company>
+
+@{
+    ViewData["Title"] = "Dashboard | Company";
+
+}
+<div class="layout-demo-wrapper">
+    <!-- Data Tables -->
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-6 pb-1 ms-auto text-start">
+                <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create/</span> Company</h4>
+            </div>
+            <div class="col-sm-6 pb-1 ms-auto text-end">
+                <a href="@Url.Action("Upsert", "Company")" class="btn btn-primary">New Company</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-truncate">Name</th>
+                            <th class="text-truncate">Street Address</th>
+                            <th class="text-truncate">City</th>
+                            <th class="text-truncate">State</th>
+                            <th class="text-truncate">PostalCode</th>
+                            <th class="text-truncate">PhoneNumber</th>
+                            <th class="text-truncate">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                            <tr>
+                                <td class="text-truncate">@obj.Name</td>
+                                <td class="text-truncate">@obj.StreetAddress</td>
+                                <td class="text-truncate">@obj.City</td>
+                                <td class="text-truncate">@obj.State</td>
+                                <td class="text-truncate">@obj.PostalCode</td>
+                                <td class="text-truncate">@obj.PhoneNumber</td>
+                                <td>
+                                    <a href="@Url.Action("Upsert", "Company", new { id = obj.Id })" class="btn btn-sm btn-primary">Edit</a>
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@obj.Id" data-name="@obj.Name">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the company "<span id="companyName"></span>"?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" asp-action="Delete" asp-controller="Company">
+                    <input type="hidden" name="id" id="companyId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section DeleteScripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+
+            var companyName = deleteModal.querySelector('#companyName');
+            var companyId = deleteModal.querySelector('#companyId');
+
+            companyName.textContent = name;
+            companyId.value = id;
+        });
+    </script>
+}

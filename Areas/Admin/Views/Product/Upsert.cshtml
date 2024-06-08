@@ -1,0 +1,138 @@
+@model ProductVM
+
+@{
+    ViewData["Title"] = "Dashboard | " + (Model.Product.Id != 0 ? "Update" : "Create");
+}
+
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">
+        @(Model.Product.Id != 0 ? "Update" : "Create") /
+    </span> Product
+</h4>
+
+<div class="row">
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">@ViewData["Title"] Form</h5>
+                <small class="text-muted float-end"></small>
+            </div>
+            <div class="card-body">
+                <form asp-action="Upsert" method="post" enctype="multipart/form-data">
+                    <input asp-for="@Model.Product.Id" hidden />
+                    <input asp-for="@Model.Product.ImageUrl" hidden />
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Title</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.Title" type="text" class="form-control" id="basic-default-name" placeholder="Enter Title" />
+                                    <span asp-validation-for="@Model.Product.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-isbn">ISBN</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.ISBN" type="text" id="basic-default-isbn" class="form-control" placeholder="Enter ISBN" />
+                                    <span asp-validation-for="@Model.Product.ISBN" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-author">Author</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.Author" type="text" id="basic-default-author" class="form-control" placeholder="Enter Author" />
+                                    <span asp-validation-for="@Model.Product.Author" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-listPrice">List Price</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.ListPrice" type="number" id="basic-default-listPrice" class="form-control" placeholder="Enter List Price" step="0.01" />
+                                    <span asp-validation-for="@Model.Product.ListPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-price">Price</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.Price" type="number" id="basic-default-price" class="form-control" placeholder="Enter Price" step="0.01" />
+                                    <span asp-validation-for="@Model.Product.Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-price50">Price50</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.Price50" type="number" id="basic-default-price50" class="form-control" placeholder="Enter Price50" step="0.01" />
+                                    <span asp-validation-for="@Model.Product.Price50" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-price100">Price100</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="@Model.Product.Price100" type="number" id="basic-default-price100" class="form-control" placeholder="Enter Price100" step="0.01" />
+                                    <span asp-validation-for="@Model.Product.Price100" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-description">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="@Model.Product.Description" class="form-control"></textarea>
+                                    <span asp-validation-for="@Model.Product.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="basic-default-category" class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select" aria-labelledby="basic-default-category">
+                                        <option value="" disabled selected>--Select Category--</option>
+                                    </select>
+                                    <span asp-validation-for="@Model.Product.CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-description">ImageUrl</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="basic-default-description" name="file" class="form-control" />
+                                    <span asp-validation-for="@Model.Product.ImageUrl" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <div class="col-sm-10">
+                                    @if (Model.Product.Id != 0)
+                                    {
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    }
+                                    <a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9;" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section TextAreaScript {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons lists checklist mediaembed casechange export pageembed linkchecker ',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+}

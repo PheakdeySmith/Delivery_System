@@ -1,0 +1,185 @@
+@page
+@model RegisterModel
+
+@{
+    Layout = "_BlankLayout";
+    ViewData["Title"] = "Register";
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
+
+@* ************** Content ************** *@
+
+<div class="position-relative">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner py-4">
+
+            <!-- Register Card -->
+            <div class="card p-2">
+                <!-- Logo -->
+                <div class="app-brand justify-content-center mt-5">
+                    <a href="/" class="app-brand-link gap-2">
+                        <span class="app-brand-logo demo">@await Html.PartialAsync("../_Partials/_Macros")</span>
+                        <span class="app-brand-text demo text-heading fw-semibold">BookWeb</span>
+                    </a>
+                </div>
+                <!-- /Logo -->
+                <div class="card-body mt-2">
+                    <h4 class="mb-2">Adventure starts here 🚀</h4>
+                    <p class="mb-4">Make your app management easy and fun!</p>
+
+                    <form id="formAuthentication" class="mb-3" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <div class="mb-3 form-name-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <input asp-for="Input.Name" id="name" class="form-control" placeholder="Name" aria-describedby="name" />
+                                    <label asp-for="Input.Name">Name</label>
+                                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating form-floating-outline mb-3">
+                            <input asp-for="Input.Email" class="form-control" placeholder="Enter your email" autofocus>
+                            <label asp-for="Input.Email">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3 form-password-toggle">
+                                <div class="input-group input-group-merge">
+                                    <div class="form-floating form-floating-outline">
+                                        <input asp-for="Input.Password" id="password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                        <label asp-for="Input.Password">Password</label>
+                                    </div>
+                                    <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                                </div>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3 form-password-toggle">
+                                <div class="input-group input-group-merge">
+                                    <div class="form-floating form-floating-outline">
+                                        <input asp-for="Input.ConfirmPassword" id="confirmPassword" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="confirmPassword" />
+                                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                                    </div>
+                                    <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                                </div>
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-streetNumber-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <input asp-for="Input.StreetAddress" id="streetNumber" class="form-control" placeholder="Street Address" aria-describedby="streetNumber" />
+                                    <label asp-for="Input.StreetAddress">Street Address</label>
+                                    <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3 form-city-toggle">
+                                <div class="input-group input-group-merge">
+                                    <div class="form-floating form-floating-outline">
+                                        <input asp-for="Input.City" id="city" class="form-control" placeholder="City" aria-describedby="city" />
+                                        <label asp-for="Input.City">City</label>
+                                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 form-state-toggle">
+                                <div class="input-group input-group-merge">
+                                    <div class="form-floating form-floating-outline">
+                                        <input asp-for="Input.State" id="state" class="form-control" placeholder="State" aria-describedby="state" />
+                                        <label asp-for="Input.State">State</label>
+                                        <span asp-validation-for="Input.State" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-postalCode-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <input asp-for="Input.PostalCode" id="postalCode" class="form-control" placeholder="PostalCode" aria-describedby="postalCode" />
+                                    <label asp-for="Input.PostalCode">Postal Code</label>
+                                    <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-phoneNumber-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <input asp-for="Input.PhoneNumber" id="phoneNumber" class="form-control" placeholder="PhoneNumber" aria-describedby="phoneNumber" />
+                                    <label asp-for="Input.PhoneNumber">Phone Number</label>
+                                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-password-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                                        <option disabled selected>--Select Role--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-password-toggle">
+                            <div class="input-group input-group-merge">
+                                <div class="form-floating form-floating-outline">
+                                    <select asp-for="Input.CompanyId" style="display:none;" asp-items="@Model.Input.CompanyList" class="form-select">
+                                        <option disabled selected>--Select Company--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary d-grid w-100">
+                            Sign up
+                        </button>
+                    </form>
+
+                    <p class="text-center">
+                        <span>Already have an account?</span>
+                        <a id="login" asp-area="Identity" asp-page="/Account/Login">
+                            <span>Sign in instead</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- Register Card -->
+            <img src="~/img/illustrations/tree-3.png" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block">
+            <img src="~/img/illustrations/auth-basic-mask-light.png" class="authentication-image d-none d-lg-block" alt="triangle-bg" data-app-light-img="illustrations/auth-basic-mask-light.png" data-app-dark-img="illustrations/auth-basic-mask-dark.png">
+            <img src="~/img/illustrations/tree.png" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
+                var selection = $('#Input_Role option:selected').text();
+
+                if (selection === 'Company') { 
+                    $('#Input_CompanyId').show();
+                } else {
+                    $('#Input_CompanyId').hide();
+                }
+            });
+        });
+    </script>
+}

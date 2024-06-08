@@ -1,0 +1,49 @@
+@model List<OrderHeader>
+
+@{
+    ViewData["Title"] = "Dashboard | Order";
+}
+
+<div class="layout-demo-wrapper">
+    <!-- Data Tables -->
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-6 pb-1">
+                <h4 class="py-3 mb-4"><span class="text-muted fw-light">List/</span> Order</h4>
+            </div>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-truncate">ID</th>
+                            <th class="text-truncate">Name</th>
+                            <th class="text-truncate">Phone Number</th>
+                            <th class="text-truncate">Email</th>
+                            <th class="text-truncate">Status</th>
+                            <th class="text-truncate">Total</th>
+                            <th class="text-truncate">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                            <tr>
+                                <td class="text-truncate">@obj.Id</td>
+                                <td class="text-truncate">@obj.Name</td>
+                                <td class="text-truncate">@obj.PhoneNumber</td>
+                                <td class="text-truncate">@obj.ApplicationUser.Email</td>
+                                <td class="text-truncate">@obj.OrderStatus</td>
+                                <td class="text-truncate">@obj.OrderTotal</td>
+                                <td>
+                                    <a asp-action="Detail" asp-route-id="@obj.Id" class="btn btn-sm btn-primary">Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+@model Company
+
+@{
+    ViewData["Title"] = "Dashboard | " + (Model.Id != 0 ? "Update" : "Create");
+}
+
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">
+        @(Model.Id != 0 ? "Update" : "Create") /
+    </span> Company
+</h4>
+
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">@ViewData["Title"] Form</h5> <small class="text-muted float-end">@* Default label *@</small>
+            </div>
+            <div class="card-body">
+                <form asp-action="Upsert" method="post">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Name" type="text" class="form-control" id="basic-default-name" placeholder="Enter Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-streetAddress">Street Address</label>
+                        <div class="col-sm-10">
+                            <input asp-for="StreetAddress" id="basic-default-streetAddress" class="form-control streetAddress-mask" placeholder="Enter Street Address" aria-label="Enter Street Address" aria-describedby="basic-default-streetAddress" />
+                            <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-city">City</label>
+                        <div class="col-sm-10">
+                            <input asp-for="City" id="basic-default-city" class="form-control city-mask" placeholder="Enter City" aria-label="Enter City" aria-describedby="basic-default-city" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-state">State</label>
+                        <div class="col-sm-10">
+                            <input asp-for="State" id="basic-default-state" class="form-control state-mask" placeholder="Enter State" aria-label="Enter State" aria-describedby="basic-default-state" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-postalCode">Postal Code</label>
+                        <div class="col-sm-10">
+                            <input asp-for="PostalCode" id="basic-default-postalCode" class="form-control postalCode-mask" placeholder="Enter Code" aria-label="Enter Code" aria-describedby="basic-default-postalCode" />
+                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phoneNumber">Phone Number</label>
+                        <div class="col-sm-10">
+                            <input asp-for="PhoneNumber" id="basic-default-phoneNumber" class="form-control phoneNumber-mask" placeholder="Enter Phone Number" aria-label="Enter Phone Number" aria-describedby="basic-default-phoneNumber" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-10">
+                            <div class="col-sm-10">
+                                @if(Model.Id != 0)
+
+                                {
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                }
+                                <a href="@Url.Action("Index", "Company")" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
